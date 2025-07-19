@@ -25,7 +25,6 @@ deno install digipinindia
 
 ```ts
 import { getDigiPin, getLatLngFromDigiPin } from 'digipinindia'
-// import { getDigiPin, getLatLngFromDigiPin } from './ori.js'
 
 const digiPin = getDigiPin(18.968557, 72.822191)
 console.log(digiPin) // Output: 4FK-5MK-9PPK
