@@ -91,10 +91,10 @@ export function getDigiPin(lat: number, lon: number): string {
 /**
  * Decodes a DIGIPIN back to its central coordinates
  * @param {string} digiPin - DIGIPIN string (with or without hyphens)
- * @returns {Object} Object with latitude and longitude as strings (6 decimal places)
+ * @returns {Object} Object with latitude and longitude as numbers
  * @throws {Error} If DIGIPIN is invalid
  */
-export function getLatLngFromDigiPin(digiPin: string): { latitude: string; longitude: string } {
+export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longitude: number } {
   // Remove hyphens and validate length
   const pin = digiPin.replace(/-/g, '');
   if (pin.length !== DIGIPIN_LENGTH) {
@@ -136,8 +136,8 @@ export function getLatLngFromDigiPin(digiPin: string): { latitude: string; longi
   const centerLon = (minLon + maxLon) * 0.5;
 
   return {
-    latitude: centerLat.toFixed(6),
-    longitude: centerLon.toFixed(6)
+    latitude: centerLat,
+    longitude: centerLon
   };
 }
 
