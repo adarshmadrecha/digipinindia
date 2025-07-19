@@ -20,7 +20,7 @@ const DIGIPIN_GRID = [
 // Initialize character lookup map
 for (let r = 0; r < 4; r++) {
   for (let c = 0; c < 4; c++) {
-    CHAR_TO_POSITION.set(DIGIPIN_GRID[r][c], { row: r, col: c });
+    CHAR_TO_POSITION.set(DIGIPIN_GRID[r]![c]!, { row: r, col: c });
   }
 }
 
@@ -44,7 +44,7 @@ const HYPHEN_POSITIONS = new Set([3, 6]); // Positions where hyphens are added
  * @returns {string} 10-digit DIGIPIN with hyphens
  * @throws {Error} If coordinates are out of bounds
  */
-export function getDigiPin(lat, lon) {
+export function getDigiPin(lat: number, lon: number): string {
   // Input validation with early return
   if (lat < BOUNDS.minLat || lat > BOUNDS.maxLat) {
     throw new Error(`Latitude ${lat} out of range [${BOUNDS.minLat}, ${BOUNDS.maxLat}]`);
@@ -68,7 +68,7 @@ export function getDigiPin(lat, lon) {
     const row = Math.min(3, Math.max(0, 3 - Math.floor((lat - minLat) / latDiv)));
     const col = Math.min(3, Math.max(0, Math.floor((lon - minLon) / lonDiv)));
 
-    result.push(DIGIPIN_GRID[row][col]);
+    result.push(DIGIPIN_GRID[row]![col]!);
 
     // Add hyphen after 3rd and 6th characters
     if (HYPHEN_POSITIONS.has(level + 1)) {
@@ -94,7 +94,7 @@ export function getDigiPin(lat, lon) {
  * @returns {Object} Object with latitude and longitude as strings (6 decimal places)
  * @throws {Error} If DIGIPIN is invalid
  */
-export function getLatLngFromDigiPin(digiPin) {
+export function getLatLngFromDigiPin(digiPin: string): { latitude: string; longitude: string } {
   // Remove hyphens and validate length
   const pin = digiPin.replace(/-/g, '');
   if (pin.length !== DIGIPIN_LENGTH) {
