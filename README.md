@@ -48,6 +48,17 @@ This project has optimizations for both speed and size, making it suitable for u
 The optimized code maintains 100% compatibility with the original while being significantly faster, especially for the decode function where the character lookup improvement provides the biggest performance gain. The encode function also benefits from reduced string operations and cleaner bound calculations.
 </details>
 
+### Benchmark
+
+| Version                | Encode ⏩ | Decode ⏪ |
+|------------------------|-----------|-----------|
+| 🛠 Original            | 78.98ms   | 60.35ms   |
+| 🚀 This Library v1.0.0 | 44.70ms   | 44.76ms   |
+| 💯 Improvement (%)     | 43.4%     | 25.8%     |
+
+*Encode: ⏩ 43.4% faster*
+*Decode: ⏪ 25.8% faster*
+
 ## Development
 This project uses [Bun](https://bun.sh) However, there is no reason why it cannot be run with Node.js or Deno.
 There is no need to install any additional dependencies.
