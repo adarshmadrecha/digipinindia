@@ -32,7 +32,7 @@ import { getDigiPin, getLatLngFromDigiPin } from 'digipinindia'
 const digiPin = getDigiPin(18.968557, 72.822191)
 console.log(digiPin) // Output: 4FK-5MK-9PPK
 
-const latLng = getLatLngFromDigiPin('4FK-5MK-9PPK')
+const latLng = getLatLngFromDigiPin('4FK-5MK-9PPK') // Hyphens are optional
 console.log(latLng) // Output: { lat: 18.968557, lng: 72.822191 }
 ```
 
