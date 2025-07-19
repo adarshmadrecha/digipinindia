@@ -136,8 +136,8 @@ export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longi
   const centerLon = (minLon + maxLon) * 0.5;
 
   return {
-    latitude: centerLat,
-    longitude: centerLon
+    latitude: parseFloat(centerLat.toFixed(6)),
+    longitude: parseFloat(centerLon.toFixed(6))
   };
 }
 
