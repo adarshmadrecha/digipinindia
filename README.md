@@ -15,6 +15,38 @@ Overall, DIGIPIN is a big step towards making India more digital and connected. 
 This project is a simple npm package (compatible with Bun, Node.js, and Deno and also Browser) that provides utilities for working with the DIGIPIN system.
 It contains both encoding and decoding functions for DIGIPIN addresses, making it easy to convert between the DIGIPIN format and a lattitude/longitude pair.
 
+This project has optimizations for both speed and size, making it suitable for use in performance-sensitive applications.
+
+<details><summary>Key Optimizations Made</summary>
+
+### 1. **Performance Improvements**
+- **O(1) Character Lookup**: Created a `Map` for character-to-position lookup instead of nested loops, reducing time complexity from O(16) to O(1)
+- **Pre-computed Constants**: Added `latRange` and `lonRange` to avoid repeated calculations
+- **Efficient String Building**: Used array with `join()` instead of string concatenation
+- **Set for Hyphen Positions**: Faster lookup for where to place hyphens
+
+### 2. **Memory Optimization**
+- **Reduced Variable Declarations**: Eliminated redundant intermediate variables
+- **Reused Calculations**: Combined similar operations where possible
+
+### 3. **Code Quality Enhancements**
+- **Better Error Messages**: More descriptive error messages with actual values
+- **Consistent Naming**: Used more descriptive variable names
+- **JSDoc Comments**: Added proper documentation for both functions
+- **Input Validation**: Enhanced validation with clearer error reporting
+
+### 4. **Maintainability**
+- **Constants**: Made magic numbers into named constants
+- **Modular Export**: Added CommonJS export support
+- **Cleaner Logic**: Simplified bound calculations while maintaining the original algorithm
+
+### 5. **Mathematical Optimizations**
+- **Multiplication Instead of Division**: Used `* 0.5` instead of `/ 2` for center calculation
+- **Reduced Math Operations**: Minimized repeated arithmetic operations
+
+The optimized code maintains 100% compatibility with the original while being significantly faster, especially for the decode function where the character lookup improvement provides the biggest performance gain. The encode function also benefits from reduced string operations and cleaner bound calculations.
+</details>
+
 ## Development
 This project uses [Bun](https://bun.sh) However, there is no reason why it cannot be run with Node.js or Deno.
 There is no need to install any additional dependencies.
