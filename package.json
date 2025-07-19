@@ -3,10 +3,33 @@
   "version": "0.0.1",
   "module": "index.ts",
   "type": "module",
+  "description": "JS/TS NPM Package to encode and decode lattitude/longitude pair to digipin and vice a versa.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adarshmadrecha/digipinindia"
+  },
+  "bugs": {
+    "url": "https://github.com/adarshmadrecha/digipinindia/issues"
+  },
+  "homepage": "https://github.com/adarshmadrecha/digipinindia#digipinindia",
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "keywords": [
+    "digipin",
+    "india",
+    "postalcode",
+    "location",
+    "lattitude",
+    "longitude"
+  ],
+  "author": {
+    "name": "Adarsh Madrecha",
+    "email": "adarshmadrecha@yahoo.com",
+    "url": "https://github.com/adarshmadrecha"
   }
 }
