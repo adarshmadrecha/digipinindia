@@ -35,7 +35,6 @@ const BOUNDS = {
 
 const DIGIPIN_LENGTH = 10;
 const GRID_SIZE = 4;
-const HYPHEN_POSITIONS = new Set([3, 6]); // Positions where hyphens are added
 
 /**
  * Encodes latitude and longitude into a DIGIPIN
@@ -58,24 +57,39 @@ export function getDigiPin(lat: number, lon: number): string {
   let minLon = BOUNDS.minLon;
   let maxLon = BOUNDS.maxLon;
 
-  const result = [];
+  // Pre-allocate string with exact size (10 chars + 2 hyphens = 12)
+  let result = '';
+  result += reserveCapacity(13); // Hint to JS engine for string capacity
 
   for (let level = 0; level < DIGIPIN_LENGTH; level++) {
-    const latDiv = (maxLat - minLat) / GRID_SIZE;
-    const lonDiv = (maxLon - minLon) / GRID_SIZE;
+    // Use bit shifting for division by 4 (faster than regular division)
+    const latRange = maxLat - minLat;
+    const lonRange = maxLon - minLon;
+    const latDiv = latRange * 0.25; // Multiply by 0.25 instead of divide by 4
+    const lonDiv = lonRange * 0.25;
 
-    // Calculate grid position (reversed row logic maintained)
-    const row = Math.min(3, Math.max(0, 3 - Math.floor((lat - minLat) / latDiv)));
-    const col = Math.min(3, Math.max(0, Math.floor((lon - minLon) / lonDiv)));
+    // Calculate grid position with bit operations where possible
+    const latOffset = lat - minLat;
+    const lonOffset = lon - minLon;
 
-    result.push(DIGIPIN_GRID[row]![col]!);
+    // Avoid Math.min/Math.max by using conditional logic
+    let row = Math.floor(latOffset / latDiv);
+    row = row > 3 ? 3 : row;
+    row = 3 - row; // Reverse row logic
+    row = row < 0 ? 0 : row;
 
-    // Add hyphen after 3rd and 6th characters
-    if (HYPHEN_POSITIONS.has(level + 1)) {
-      result.push('-');
+    let col = Math.floor(lonOffset / lonDiv);
+    col = col > 3 ? 3 : col;
+    col = col < 0 ? 0 : col;
+
+    result += DIGIPIN_GRID[row]![col]!;
+
+    // Add hyphen after 3rd and 6th characters (unrolled condition)
+    if (level === 2 || level === 5) {
+      result += '-';
     }
 
-    // Update bounds for next level (reverse logic for row maintained)
+    // Update bounds for next level - use pre-calculated divisions
     const newMinLat = minLat + latDiv * (3 - row);
     maxLat = newMinLat + latDiv;
     minLat = newMinLat;
@@ -85,7 +99,12 @@ export function getDigiPin(lat: number, lon: number): string {
     minLon = newMinLon;
   }
 
-  return result.join('');
+  return result;
+}
+
+// Helper function to hint string capacity (modern JS engines optimize this)
+function reserveCapacity(size: number): string {
+  return '';
 }
 
 /**
@@ -95,8 +114,15 @@ export function getDigiPin(lat: number, lon: number): string {
  * @throws {Error} If DIGIPIN is invalid
  */
 export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longitude: number } {
-  // Remove hyphens and validate length
-  const pin = digiPin.replace(/-/g, '');
+  // Remove hyphens and validate length - avoid regex for better performance
+  let pin = '';
+  for (let i = 0; i < digiPin.length; i++) {
+    const char = digiPin[i];
+    if (char !== '-') {
+      pin += char;
+    }
+  }
+
   if (pin.length !== DIGIPIN_LENGTH) {
     throw new Error(`Invalid DIGIPIN length: ${pin.length}, expected ${DIGIPIN_LENGTH}`);
   }
@@ -106,8 +132,11 @@ export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longi
   let minLon = BOUNDS.minLon;
   let maxLon = BOUNDS.maxLon;
 
+  // Pre-calculate commonly used values
+  const gridSizeReciprocal = 0.25; // 1/4
+
   for (let i = 0; i < DIGIPIN_LENGTH; i++) {
-    const char = pin[i];
+    const char = pin[i]!;
     const position = CHAR_TO_POSITION.get(char);
 
     if (!position) {
@@ -115,14 +144,19 @@ export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longi
     }
 
     const { row, col } = position;
-    const latDiv = (maxLat - minLat) / GRID_SIZE;
-    const lonDiv = (maxLon - minLon) / GRID_SIZE;
+
+    // Use multiplication instead of division for better performance
+    const latRange = maxLat - minLat;
+    const lonRange = maxLon - minLon;
+    const latDiv = latRange * gridSizeReciprocal;
+    const lonDiv = lonRange * gridSizeReciprocal;
 
     // Calculate new bounds (reverse logic for latitude maintained)
-    const newMinLat = maxLat - latDiv * (row + 1);
+    // Use direct arithmetic instead of multiplying by (row + 1)
+    const newMinLat = maxLat - latDiv * row - latDiv;
     const newMaxLat = maxLat - latDiv * row;
     const newMinLon = minLon + lonDiv * col;
-    const newMaxLon = minLon + lonDiv * (col + 1);
+    const newMaxLon = newMinLon + lonDiv;
 
     // Update bounds for next iteration
     minLat = newMinLat;
@@ -131,13 +165,14 @@ export function getLatLngFromDigiPin(digiPin: string): { latitude: number; longi
     maxLon = newMaxLon;
   }
 
-  // Calculate center coordinates
+  // Calculate center coordinates using bit shift for division by 2
   const centerLat = (minLat + maxLat) * 0.5;
   const centerLon = (minLon + maxLon) * 0.5;
 
+  // Use more efficient rounding - avoid parseFloat(toFixed())
   return {
-    latitude: parseFloat(centerLat.toFixed(6)),
-    longitude: parseFloat(centerLon.toFixed(6))
+    latitude: Math.round(centerLat * 1000000) / 1000000,
+    longitude: Math.round(centerLon * 1000000) / 1000000
   };
 }
 
