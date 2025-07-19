@@ -1,4 +1,4 @@
-# digipinindia
+# DigiPIN India
 
 ## About DigiPIN
 The Department of Posts has started a [new project](https://www.indiapost.gov.in/vas/Pages/digipin.aspx) to build a Digital Public Infrastructure (DPI) that will help create a standard and accurate way to identify addresses in India. As part of this project, they have developed something called DIGIPIN – a new digital system for addresses.
@@ -86,3 +86,6 @@ The optimized code maintains 100% compatibility with the original while being si
 ## Development
 This project uses [Bun](https://bun.sh) However, there is no reason why it cannot be run with Node.js or Deno.
 There is no need to install any additional dependencies.
+
+## How it Works
+<img width="1752" height="1081" alt="Image" src="https://github.com/user-attachments/assets/69adb651-49ea-4cb3-b91e-0fc9430e6a5e" />
