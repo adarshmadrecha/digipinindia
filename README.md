@@ -39,6 +39,7 @@ This project has optimizations for both speed and size, making it suitable for u
 - **Constants**: Made magic numbers into named constants
 - **Modular Export**: Added CommonJS export support
 - **Cleaner Logic**: Simplified bound calculations while maintaining the original algorithm
+- **TypeScript Types**: Added type annotations for better type safety and IDE support (Eg: latitude and longitude as numbers)
 
 ### 5. **Mathematical Optimizations**
 - **Multiplication Instead of Division**: Used `* 0.5` instead of `/ 2` for center calculation
