@@ -1,6 +1,6 @@
 {
   "name": "digipinindia",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "module": "index.ts",
   "type": "module",
   "description": "JS/TS NPM Package to encode and decode lattitude/longitude pair to digipin and vice a versa.",
