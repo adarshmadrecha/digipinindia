@@ -224,3 +224,7 @@ Every DIGIPIN has exactly **10 characters**:
 - Identical first 6 characters = within the same 1km area
 - Identical first 9 characters = within the same 15m area
 
+---
+
+Made with ❤️ for the Indian developer community
+
