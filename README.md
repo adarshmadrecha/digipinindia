@@ -1,4 +1,9 @@
 # DigiPIN India
+[![npm version](https://img.shields.io/npm/v/digipinindia.svg?style=flat-square)](https://www.npmjs.org/package/digipinindia)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/digipinindia?style=flat-square)](https://bundlephobia.com/package/digipinindia@latest)
+[![Publish to npm with Provenance](https://github.com/adarshmadrecha/digipinindia/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/adarshmadrecha/digipinindia/actions/workflows/publish.yml)
+
+
 
 ## About DigiPIN
 The Department of Posts has started a [new project](https://www.indiapost.gov.in/vas/Pages/digipin.aspx) to build a Digital Public Infrastructure (DPI) that will help create a standard and accurate way to identify addresses in India. As part of this project, they have developed something called DIGIPIN – a new digital system for addresses.
