@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGIPIN India Visualizer</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <h1>🇮🇳 DIGIPIN India Visualizer</h1>
+      <p>Explore India's National Addressing Grid - 10-character codes for every 4m × 4m area</p>
+    </header>
+
+    <div id="map-container">
+      <div id="map"></div>
+
+      <!-- Info panel -->
+      <div id="info-panel">
+        <div id="zoom-info">
+          <span>Zoom Level: <strong id="zoom-level">1</strong></span>
+          <span>DIGIPIN Characters: <strong id="digipin-chars">1</strong></span>
+          <span>Grid Size: <strong id="grid-size">~1000 km</strong></span>
+        </div>
+
+        <div id="hover-info">
+          <div id="current-digipin">
+            <label>Current DIGIPIN:</label>
+            <span id="digipin-display">Hover over a grid</span>
+          </div>
+          <div id="coordinates">
+            <label>Coordinates:</label>
+            <span id="coord-display">--</span>
+          </div>
+        </div>
+
+        <div id="legend">
+          <h3>Grid Legend</h3>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(255, 0, 0, 0.3); border: 2px solid #ff0000;"></div>
+            <span>DIGIPIN Grid Boundaries</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(0, 0, 255, 0.1);"></div>
+            <span>Grid Cell (Hovered)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="controls">
+      <button id="reset-view">🏠 Reset to India</button>
+      <button id="toggle-grid">🔲 Toggle Grid</button>
+      <button id="info-toggle">ℹ️ Info</button>
+    </div>
+
+    <!-- Modal for information -->
+    <div id="info-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>About DIGIPIN Visualizer</h2>
+        <p>This interactive map shows India's DIGIPIN system - a hierarchical 10-level addressing grid that provides
+          unique codes for every 4m × 4m area in India.</p>
+
+        <h3>How to Use:</h3>
+        <ul>
+          <li><strong>Zoom:</strong> Use mouse wheel or zoom controls to explore different grid levels</li>
+          <li><strong>Hover:</strong> Move your mouse over grid cells to see DIGIPIN codes</li>
+          <li><strong>Navigate:</strong> Pan around to explore different regions of India</li>
+        </ul>
+
+        <h3>Grid Levels:</h3>
+        <table>
+          <tr>
+            <th>Level</th>
+            <th>Characters</th>
+            <th>Grid Size</th>
+            <th>Coverage</th>
+          </tr>
+          <tr>
+            <td>1-2</td>
+            <td>1-2</td>
+            <td>1000-250 km</td>
+            <td>Regions/States</td>
+          </tr>
+          <tr>
+            <td>3-4</td>
+            <td>3-4</td>
+            <td>62.5-15.6 km</td>
+            <td>Districts/Cities</td>
+          </tr>
+          <tr>
+            <td>5-6</td>
+            <td>5-6</td>
+            <td>3.9-1 km</td>
+            <td>Neighborhoods</td>
+          </tr>
+          <tr>
+            <td>7-8</td>
+            <td>7-8</td>
+            <td>250-60 m</td>
+            <td>City blocks</td>
+          </tr>
+          <tr>
+            <td>9-10</td>
+            <td>9-10</td>
+            <td>15-4 m</td>
+            <td>Buildings/Final</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="site.js"></script>
+</body>
+
+</html>
