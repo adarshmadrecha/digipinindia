@@ -1,8 +1,21 @@
 {
   "name": "digipinindia",
   "version": "1.0.0",
-  "module": "index.ts",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "description": "JS/TS NPM Package to encode and decode lattitude/longitude pair to digipin and vice a versa.",
   "license": "MIT",
   "repository": {
@@ -13,10 +26,16 @@
     "url": "https://github.com/adarshmadrecha/digipinindia/issues"
   },
   "homepage": "https://github.com/adarshmadrecha/digipinindia#digipinindia",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "scripts": {
+    "build": "tsc",
+    "test": "bun test",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit --project tsconfig.dev.json",
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
-  "peerDependencies": {
+  "devDependencies": {
+    "@types/bun": "latest",
     "typescript": "^5"
   },
   "keywords": [
