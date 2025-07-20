@@ -26,6 +26,7 @@ bun add digipinindia
 deno install digipinindia
 ```
 
+### TypeScript
 ```ts
 import { getDigiPin, getLatLngFromDigiPin } from 'digipinindia'
 
@@ -33,7 +34,18 @@ const digiPin = getDigiPin(18.968557, 72.822191)
 console.log(digiPin) // Output: 4FK-5MK-9PPK
 
 const latLng = getLatLngFromDigiPin('4FK-5MK-9PPK') // Hyphens are optional
-console.log(latLng) // Output: { lat: 18.968557, lng: 72.822191 }
+console.log(latLng) // Output: { latitude: 18.968557, longitude: 72.822191 }
+```
+
+### JavaScript (ES Modules)
+```js
+import { getDigiPin, getLatLngFromDigiPin } from 'digipinindia'
+
+const digiPin = getDigiPin(18.968557, 72.822191)
+console.log(digiPin) // Output: 4FK-5MK-9PPK
+
+const coords = getLatLngFromDigiPin('4FK-5MK-9PPK')
+console.log(coords) // Output: { latitude: 18.968557, longitude: 72.822191 }
 ```
 
 
